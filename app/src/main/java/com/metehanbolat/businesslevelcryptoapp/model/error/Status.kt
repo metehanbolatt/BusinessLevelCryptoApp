@@ -1,4 +1,4 @@
-package com.metehanbolat.businesslevelcryptoapp.model
+package com.metehanbolat.businesslevelcryptoapp.model.error
 
 data class Status(
     val credit_count: Int,
