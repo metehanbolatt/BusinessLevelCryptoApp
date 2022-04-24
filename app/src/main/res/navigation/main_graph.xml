@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.metehanbolat.businesslevelcryptoapp.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.metehanbolat.businesslevelcryptoapp.ui.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="symbol"
+            app:argType="string" />
+    </fragment>
 </navigation>
