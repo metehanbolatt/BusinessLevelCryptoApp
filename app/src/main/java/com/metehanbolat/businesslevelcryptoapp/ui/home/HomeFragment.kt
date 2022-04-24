@@ -1,8 +1,10 @@
 package com.metehanbolat.businesslevelcryptoapp.ui.home
 
+import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.metehanbolat.businesslevelcryptoapp.base.BaseFragment
 import com.metehanbolat.businesslevelcryptoapp.databinding.FragmentHomeBinding
 import com.metehanbolat.businesslevelcryptoapp.model.success.Data
@@ -14,8 +16,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(
 ) {
     override val viewModel by viewModels<HomeViewModel>()
 
-    override fun onCreateFinished() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.getData()
+    }
+
+    override fun onCreateFinished() {
     }
 
     override fun initializeListeners() {
@@ -43,6 +49,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(
     private fun setRecycler(data: List<Data>) {
         val adapter = HomeRecyclerAdapter(object: CardClickListener {
             override fun onCardClick(coin: Data) {
+                coin.symbol?.let {
+                    val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it)
+                    findNavController().navigate(action)
+                }
 
             }
         })

@@ -1,5 +1,6 @@
 package com.metehanbolat.businesslevelcryptoapp.network
 
+import com.metehanbolat.businesslevelcryptoapp.model.detail.DetailResponse
 import com.metehanbolat.businesslevelcryptoapp.model.success.CryptoResponse
 import com.metehanbolat.businesslevelcryptoapp.utils.Constants.API_KEY
 import com.metehanbolat.businesslevelcryptoapp.utils.Constants.LIMIT
@@ -16,4 +17,10 @@ interface ApiFactory {
         @Header("X-CMC_PRO_API_KEY") apiKey: String = API_KEY,
         @Query("limit") limit: String = LIMIT
     ): CryptoResponse
+
+    @GET("v2/cryptocurrency/info")
+    suspend fun getDetail(
+        @Query("symbol") symbol: String,
+        @Header("X-CMC_PRO_API_KEY") apiKey: String = API_KEY
+    ): DetailResponse
 }
