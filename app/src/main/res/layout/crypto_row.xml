@@ -15,13 +15,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:layout_margin="6dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cryptoCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
             android:onClick="@{() -> cardClickListener.onCardClick(coin)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

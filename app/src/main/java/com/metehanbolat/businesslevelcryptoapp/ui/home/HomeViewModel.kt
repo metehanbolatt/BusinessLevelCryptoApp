@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.metehanbolat.businesslevelcryptoapp.model.success.CryptoResponse
 import com.metehanbolat.businesslevelcryptoapp.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,22 +15,25 @@ class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
 ): ViewModel() {
 
-    private val _homeViewState: MutableLiveData<HomeViewState> = MutableLiveData()
-    val homeViewState: LiveData<HomeViewState> = _homeViewState
+    private var _cryptoResponse: MutableLiveData<CryptoResponse> = MutableLiveData()
+    val cryptoResponse: LiveData<CryptoResponse> = _cryptoResponse
+
+    private var _isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private var _onError : MutableLiveData<String> = MutableLiveData()
+    val onError: LiveData<String> = _onError
 
     fun getData() = viewModelScope.launch {
-        when(val request = repository.getData()) {
+        _isLoading.value = true
+        when(val request = repository.getData()){
             is NetworkResult.Success -> {
-                _homeViewState.value?.let {
-                    it.cryptoResponse = request.data
-                    it.isLoading = false
-                }
+                _cryptoResponse.value = request.data!!
+                _isLoading.value = false
             }
             is NetworkResult.Error -> {
-                _homeViewState.value?.let {
-                    it.onError = request.message
-                    it.isLoading = false
-                }
+                _onError.value = request.message!!
+                _isLoading.value = false
             }
         }
     }
