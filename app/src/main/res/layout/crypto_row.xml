@@ -37,6 +37,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/ic_launcher_background"
+                    loadImage="@{String.valueOf(coin.id)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:contentDescription="@string/crypto_image" />
